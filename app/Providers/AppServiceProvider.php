@@ -31,11 +31,23 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(!app()->isProduction());
 
-        DB::whenQueryingForLongerThan(CarbonInterval::seconds(5), function (Connection $connection, QueryExecuted $event) {
-            logger()
-                ->channel('telegram')
-                ->debug('whenQueryingForLongerThan: ' . $connection->getName() . ' ' . $event->sql . ' ' . $event->time . 'ms');
-        });
+        if (app()->isProduction()) {
+            DB::whenQueryingForLongerThan(CarbonInterval::seconds(5), function (Connection $connection, QueryExecuted $event) {
+                logger()
+                    ->channel('telegram')
+                    ->debug('whenQueryingForLongerThan: ' . $connection->getName() . ' ' . $event->sql . ' ' . $event->time . 'ms');
+            });
+
+            $kernel = app(Kernel::class);
+            $kernel->whenRequestLifecycleIsLongerThan(
+                CarbonInterval::seconds(4),
+                function () {
+                    logger()
+                        ->channel('telegram')
+                        ->debug('whenRequestLifecycleIsLongerThan: ' . request()->url());
+                }
+            );
+        }
 
         RateLimiter::for('global', function(Request $request) {
             return Limit::perMinute(500)
@@ -44,15 +56,5 @@ class AppServiceProvider extends ServiceProvider
                     return response('Take it easy...', ResponseAlias::HTTP_TOO_MANY_REQUESTS, $headers);
                 });
         });
-
-        $kernel = app(Kernel::class);
-        $kernel->whenRequestLifecycleIsLongerThan(
-            CarbonInterval::seconds(4),
-            function () {
-                logger()
-                    ->channel('telegram')
-                    ->debug('whenRequestLifecycleIsLongerThan: ' . request()->url());
-            }
-        );
     }
 }
