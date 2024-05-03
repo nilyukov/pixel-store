@@ -56,5 +56,7 @@ class AppServiceProvider extends ServiceProvider
                     return response('Take it easy...', ResponseAlias::HTTP_TOO_MANY_REQUESTS, $headers);
                 });
         });
+
+        RateLimiter::for('auth', fn(Request $request) => Limit::perMinute(20)->by($request->ip()));
     }
 }
