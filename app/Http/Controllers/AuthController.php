@@ -54,7 +54,6 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-
         return redirect()->intended(route('index'));
     }
 
@@ -68,8 +67,6 @@ class AuthController extends Controller
 
         return redirect()->route('index');
     }
-
-
 
     public function forgot(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
