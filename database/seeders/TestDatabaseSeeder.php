@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Domain\Auth\Models\User;
 use Illuminate\Database\Seeder;
 
 class TestDatabaseSeeder extends Seeder

@@ -3,7 +3,7 @@
 @section('title', 'Вход в аккаунт')
 
 @section('content')
-    <x-forms.auth-forms title="Вход в аккаунт" action="{{ route('signIn') }}" method="POST">
+    <x-forms.auth-forms title="Вход в аккаунт" action="{{ route('login.handle') }}" method="POST">
         @csrf
         <x-forms.text-input
             name="email"
@@ -42,8 +42,8 @@
 
         <x-slot:buttons>
             <div class="space-y-3 mt-5">
-                <div class="text-xxs md:text-xs"><a href="{{ route('password.request') }}" class="text-white hover:text-white/70 font-bold">Забыли пароль?</a></div>
-                <div class="text-xxs md:text-xs"><a href="{{ route('signUp') }}" class="text-white hover:text-white/70 font-bold">Регистрация</a></div>
+                <div class="text-xxs md:text-xs"><a href="{{ route('forgot') }}" class="text-white hover:text-white/70 font-bold">Забыли пароль?</a></div>
+                <div class="text-xxs md:text-xs"><a href="{{ route('register') }}" class="text-white hover:text-white/70 font-bold">Регистрация</a></div>
             </div>
         </x-slot:buttons>
     </x-forms.auth-forms>
