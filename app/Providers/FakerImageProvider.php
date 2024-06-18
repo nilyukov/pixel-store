@@ -24,6 +24,6 @@ class FakerImageProvider extends Base
             Storage::path($storageDir)
         );
 
-        return '/storage/' . trim($storageDir, '/') . '/' . $file;
+        return '/storage/' . trim($storageDir, '/') . '/' . basename($file);
     }
 }
