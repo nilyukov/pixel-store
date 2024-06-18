@@ -30,6 +30,6 @@ class SignUpController extends Controller
             $request->get('password')
         );
 
-        return redirect()->intended(route('index'));
+        return redirect()->intended(route('home'));
     }
 }
