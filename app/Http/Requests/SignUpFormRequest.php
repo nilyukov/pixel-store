@@ -30,7 +30,7 @@ class SignUpFormRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'email' => str(request('email'))
