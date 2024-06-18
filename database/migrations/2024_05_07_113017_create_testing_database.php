@@ -83,9 +83,9 @@ return new class extends Migration
         Schema::connection('testing')->dropIfExists('users');
         Schema::connection('testing')->dropIfExists('password_reset_tokens');
         Schema::connection('testing')->dropIfExists('sessions');
-        Schema::connection('testing')->dropIfExists('brands');
-        Schema::connection('testing')->dropIfExists('categories');
         Schema::connection('testing')->dropIfExists('category_product');
         Schema::connection('testing')->dropIfExists('products');
+        Schema::connection('testing')->dropIfExists('brands');
+        Schema::connection('testing')->dropIfExists('categories');
     }
 };
