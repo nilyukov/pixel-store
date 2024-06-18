@@ -9,11 +9,16 @@
     @vite(['resources/css/app.css', 'resources/sass/main.sass', 'resources/js/app.js'])
 </head>
 <body class="antialiased">
-    @if ($flash = flash()->get())
-        <div class="{{ $flash->class() }} p-5">
-            {{ $flash->message() }}
+    @include('shared.flash')
+
+    @include('shared.header')
+
+    <main class="py-16 lg:py-20">
+        <div class="container">
+            @yield('content')
         </div>
-    @endif
-    @yield('content')
+    </main>
+
+    @include('shared.footer')
 </body>
 </html>

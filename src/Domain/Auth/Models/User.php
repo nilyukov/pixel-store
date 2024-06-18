@@ -4,6 +4,7 @@ namespace Domain\Auth\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,5 +51,12 @@ class User extends Authenticatable
     protected static function newFactory(): Factory|UserFactory
     {
         return UserFactory::new();
+    }
+
+    public function avatar(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => 'https://ui-avatars.com/api/?name=' . urlencode($this->name) .'&background=random',
+        );
     }
 }
