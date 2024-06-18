@@ -31,7 +31,7 @@ class SignInController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('index'));
+        return redirect()->intended(route('home'));
     }
 
     #[Delete('/logout', name: 'logOut')]
@@ -43,6 +43,6 @@ class SignInController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect()->route('index');
+        return redirect()->route('home');
     }
 }
