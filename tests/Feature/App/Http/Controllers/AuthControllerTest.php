@@ -69,7 +69,7 @@ class AuthControllerTest extends TestCase
             $request
         );
 
-        $response->assertValid()->assertRedirect(route('index'));
+        $response->assertValid()->assertRedirect(route('home'));
 
         $this->assertAuthenticatedAs($user);
     }
@@ -114,7 +114,7 @@ class AuthControllerTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
 
-        $response->assertRedirect(route('index'));
+        $response->assertRedirect(route('home'));
     }
 
     function test_log_out_success(): void
@@ -128,6 +128,6 @@ class AuthControllerTest extends TestCase
 
         $this->assertGuest();
 
-        $response->assertRedirect(route('index'));
+        $response->assertRedirect(route('home'));
     }
 }
