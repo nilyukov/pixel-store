@@ -20,10 +20,5 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->has(ProductFactory::new()->count(rand(1, 5)))
             ->create();
-
-        ProductFactory::new()
-            ->count(20)
-            ->has(CategoryFactory::new()->count(rand(1, 5)))
-            ->create();
     }
 }
