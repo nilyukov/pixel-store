@@ -33,7 +33,7 @@
                 <form action="{{ route('catalog', $category) }}" class="overflow-auto max-h-[320px] lg:max-h-[100%] space-y-10 p-6 2xl:p-8 rounded-2xl bg-card">
                     <!-- Filter item -->
                     @foreach(filters() as $filter)
-                        @include($filter->view(), ['filter' => $filter])
+                        {!! $filter !!}
                     @endforeach
                     <!-- Filter item -->
                     <div>

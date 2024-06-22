@@ -3,8 +3,9 @@
 namespace Domain\Catalog\Filters;
 
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Stringable;
 
-abstract class AbstractFilter
+abstract class AbstractFilter implements Stringable
 {
     abstract public function title(): string;
 
@@ -38,5 +39,10 @@ abstract class AbstractFilter
         return str($this->name($index))
             ->slug('_')
             ->value();
+    }
+
+    public function __toString(): string
+    {
+        return view($this->view(), ['filter' => $this])->render();
     }
 }
