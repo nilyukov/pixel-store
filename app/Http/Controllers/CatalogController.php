@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\CatalogViewMiddleware;
 use App\Models\Product;
 use Domain\Catalog\Models\Category;
 use Illuminate\Contracts\View\Factory;
@@ -12,7 +13,7 @@ use Spatie\RouteAttributes\Attributes\Get;
 
 class CatalogController extends Controller
 {
-    #[Get('/catalog/{category:slug?}', name: 'catalog')]
+    #[Get('/catalog/{category:slug?}', name: 'catalog', middleware: CatalogViewMiddleware::class)]
     public function __invoke(?Category $category): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $categories = Category::query()
