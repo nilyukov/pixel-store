@@ -9,6 +9,7 @@
         "ext-pdo": "*",
         "intervention/image-laravel": "^1.2",
         "laravel/framework": "^11.0",
+        "laravel/scout": "^10.10",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
         "sentry/sentry-laravel": "^4.4",

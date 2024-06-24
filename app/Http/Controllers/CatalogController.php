@@ -21,18 +21,20 @@ class CatalogController extends Controller
             ->has('products')
             ->get();
 
-        $products = Product::query()
-            ->select(['id', 'title', 'slug', 'thumbnail', 'price'])
-            ->when($category->exists, function (Builder $query) use ($category) {
-                $query->whereRelation(
-                    'categories',
-                    'categories.id',
-                    '=',
-                    $category->id
-                );
+        $products = Product::search()
+            ->query(function(Builder $query) use ($category) {
+                $query->select(['id', 'title', 'slug', 'thumbnail', 'price'])
+                    ->when($category->exists, function (Builder $query) use ($category) {
+                        $query->whereRelation(
+                            'categories',
+                            'categories.id',
+                            '=',
+                            $category->id
+                        );
+                    })
+                    ->filtered()
+                    ->sorted();
             })
-            ->filtered()
-            ->sorted()
             ->paginate(6);
 
         return view('catalog.index', [
