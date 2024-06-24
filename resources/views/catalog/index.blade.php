@@ -35,22 +35,6 @@
                     @foreach(filters() as $filter)
                         {!! $filter !!}
                     @endforeach
-                    <!-- Filter item -->
-                    <div>
-                        <h5 class="mb-4 text-sm 2xl:text-md font-bold">Бренд</h5>
-
-                        @foreach($brands as $brand)
-                            <div class="form-checkbox">
-                                <input type="checkbox"
-                                       id="filters-item-{{ $brand->id }}"
-                                       name="filters[brands][{{ $brand->id }}]"
-                                       value="{{ $brand->id }}"
-                                       @checked(request('filters.brands.' . $brand->id))
-                                >
-                                <label for="filters-item-{{ $brand->id }}" class="form-checkbox-label">{{ $brand->title }}</label>
-                            </div>
-                        @endforeach
-                    </div>
 
                     <button type="submit" class="w-full h-12 btn btn-pink">Поиск</button>
 

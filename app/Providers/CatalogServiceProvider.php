@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Filters\BrandsFilter;
 use App\Filters\PriceFilter;
 use Domain\Catalog\Filters\FilterManager;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +24,7 @@ class CatalogServiceProvider extends ServiceProvider
     {
         app(FilterManager::class)->registerFilters([
             new PriceFilter(),
+            new BrandsFilter()
         ]);
     }
 }
