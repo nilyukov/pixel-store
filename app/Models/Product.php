@@ -77,4 +77,15 @@ class Product extends Model
     {
         Sorter::run($query);
     }
+
+    public function properties(): BelongsToMany
+    {
+        return $this->belongsToMany(Property::class, 'product_property')
+            ->withPivot('value');
+    }
+
+    public function optionValues(): BelongsToMany
+    {
+        return $this->belongsToMany(OptionValue::class);
+    }
 }
