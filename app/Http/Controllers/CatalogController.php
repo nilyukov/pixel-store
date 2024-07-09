@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\CatalogViewMiddleware;
-use App\Models\Product;
 use Domain\Catalog\Models\Category;
+use Domain\Product\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;

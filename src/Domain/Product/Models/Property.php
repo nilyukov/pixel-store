@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Product\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class Property extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'title'
     ];
 }

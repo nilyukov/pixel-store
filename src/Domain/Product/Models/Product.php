@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace Domain\Product\Models;
 
 use App\Jobs\ProductJsonProperties;
-use Domain\Catalog\Facades\Sorter;
+use Database\Factories\ProductFactory;
 use Domain\Catalog\Models\Brand;
 use Domain\Catalog\Models\Category;
-use Illuminate\Database\Eloquent\Builder;
+use Domain\Product\QueryBuilders\ProductQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +17,9 @@ use Support\Casts\PriceCast;
 use Support\Traits\HasSlug;
 use Support\Traits\HasThumbnail;
 
+/**
+ * @method static Product|ProductQueryBuilder query()
+ */
 class Product extends Model
 {
     use HasFactory;
@@ -72,25 +75,6 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function scopeHomePage(Builder $query): void
-    {
-        $query->where('on_home_page', true)
-            ->orderBy('sorting')
-            ->limit(6);
-    }
-
-    public function scopeFiltered(Builder $query): void
-    {
-        foreach(filters() as $filter) {
-            $query = $filter->apply($query);
-        }
-    }
-
-    public function scopeSorted(Builder $query): void
-    {
-        Sorter::run($query);
-    }
-
     public function properties(): BelongsToMany
     {
         return $this->belongsToMany(Property::class, 'product_property')
@@ -100,5 +84,15 @@ class Product extends Model
     public function optionValues(): BelongsToMany
     {
         return $this->belongsToMany(OptionValue::class);
+    }
+
+    public function newEloquentBuilder($query): ProductQueryBuilder
+    {
+        return new ProductQueryBuilder($query);
+    }
+
+    protected static function newFactory(): ProductFactory
+    {
+        return ProductFactory::new();
     }
 }
