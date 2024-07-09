@@ -63,7 +63,7 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="text-body text-xxs sm:text-xs !leading-5">Найдено: <strong>{{ $products->total() }} товаров</strong></div>
+                        <div class="text-body text-xxs sm:text-xs">Найдено: <strong>{{ $products->total() }} товаров</strong></div>
                     </div>
                     <div x-data="{sort: '{{ filter_url($category, ['sort' => request('sort')]) }}'}" class="flex flex-col sm:flex-row sm:items-center gap-3">
                         <span class="text-body text-xxs sm:text-xs !leading-5">Сортировать по</span>
