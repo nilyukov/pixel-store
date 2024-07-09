@@ -95,7 +95,11 @@
 
                 <!-- Products list -->
                 <div class="products grid @if(is_catalog_view('list')) grid-cols-1 gap-y-8 @else grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-6 2xl:gap-x-8 gap-y-8 lg:gap-y-10 2xl:gap-y-12 @endif">
-                    @each('catalog.shared.product', $products, 'item')
+                    @if(is_catalog_view('list'))
+                        @each('product.shared.product-list', $products, 'product')
+                    @else
+                        @each('catalog.shared.product', $products, 'item')
+                    @endif
                 </div>
 
                 <!-- Page pagination -->
