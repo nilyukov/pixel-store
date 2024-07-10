@@ -13,7 +13,8 @@
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
         "sentry/sentry-laravel": "^4.4",
-        "spatie/laravel-route-attributes": "*"
+        "spatie/laravel-route-attributes": "*",
+        "spatie/laravel-view-models": "^1.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
