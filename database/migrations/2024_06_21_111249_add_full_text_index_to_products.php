@@ -9,10 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->text('text')
-                ->nullable()
-                ->fullText();
-            $table->fullText(['title', 'text']);
+            $table->text('text')->nullable();
+            $table->fullText('title');
+            $table->fullText('text');
         });
     }
 
@@ -20,7 +19,8 @@ return new class extends Migration
     {
         if (!app()->isProduction()) {
             Schema::table('products', function (Blueprint $table) {
-                //
+                $table->dropFullText('title');
+                $table->dropFullText('text');
             });
         }
     }

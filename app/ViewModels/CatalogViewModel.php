@@ -7,11 +7,13 @@ use Domain\Product\Models\Product;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Spatie\ViewModels\ViewModel;
 
 class CatalogViewModel extends ViewModel
 {
     public function __construct(
+        public Request $request,
         public Category $category
     )
     {
@@ -20,7 +22,7 @@ class CatalogViewModel extends ViewModel
 
     public function products(): LengthAwarePaginator
     {
-        return Product::search()
+        return Product::search($this->request->input('search'))
             ->query(function(Builder $query) {
                 $query->select(['id', 'title', 'slug', 'thumbnail', 'price', 'json_properties'])
                     ->withCategory($this->category)
