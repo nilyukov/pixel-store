@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\AfterSessionRegenerated;
 use Carbon\CarbonInterval;
+use Domain\Cart\CartManager;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +12,7 @@ use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Foundation\Http\Kernel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -58,5 +61,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('auth', fn(Request $request) => Limit::perMinute(20)->by($request->ip()));
+
+        Event::listen(AfterSessionRegenerated::class, function(AfterSessionRegenerated $event) {
+            app(CartManager::class)->updateStorageId($event->oldId, $event->currentId);
+        });
     }
 }

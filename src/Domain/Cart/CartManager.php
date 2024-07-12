@@ -21,6 +21,11 @@ class CartManager
     {
     }
 
+    public function updateStorageId(string $oldId, string $currentId): void
+    {
+        Cart::query()->where('storage_id', $oldId)->update($this->storedData($currentId));
+    }
+
     public function add(Product $product, int $quantity = 1, array $optionValues = []): Model|Builder
     {
         $sessionId = $this->identityStorage->get();
