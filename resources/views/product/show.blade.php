@@ -63,7 +63,9 @@
                 @endif
 
                 <!-- Add to cart -->
-                <form class="space-y-8 mt-8">
+                <form class="space-y-8 mt-8" action="{{ route('cart.add', $product) }}" method="POST">
+                    @csrf
+
                     <div class="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
 
                         @foreach($options as $option => $values)
@@ -71,27 +73,18 @@
                                 <label for="filter-item-{{ $option }}" class="cursor-pointer text-body text-xxs font-medium">
                                     {{ $option }}
                                 </label>
-                                <select id="filter-item-{{ $option }}" class="form-select w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs shadow-transparent outline-0 transition">
+                                <select name="options[]" id="filter-item-{{ $option }}" class="form-select w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs shadow-transparent outline-0 transition">
                                     @foreach($values as $value)
                                         <option value="{{ $value->id }}" class="text-dark">{{ $value->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         @endforeach
-
-                        <div class="flex flex-col gap-2">
-                            <label for="filter-item-2" class="cursor-pointer text-body text-xxs font-medium">Размер (хват)</label>
-                            <select id="filter-item-2" class="form-select w-full h-12 px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs shadow-transparent outline-0 transition">
-                                <option value="Маленький" class="text-dark">Маленький</option>
-                                <option value="Средний" class="text-dark">Средний</option>
-                                <option value="Большой" class="text-dark">Большой</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="flex flex-wrap items-center gap-3 xs:gap-4">
                         <div class="flex items-stretch h-[54px] lg:h-[72px] gap-2">
                             <button type="button" class="w-12 h-full rounded-lg border border-body/10 hover:bg-card/20 active:bg-card/50 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs text-center font-bold shadow-transparent outline-0 transition">-</button>
-                            <input type="number" class="h-full px-2 md:px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs text-center font-bold shadow-transparent outline-0 transition" min="1" max="999" value="1" placeholder="К-во">
+                            <input name="quantity" type="number" class="h-full px-2 md:px-4 rounded-lg border border-body/10 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs text-center font-bold shadow-transparent outline-0 transition" min="1" max="999" value="1" placeholder="К-во">
                             <button type="button" class="w-12 h-full rounded-lg border border-body/10 hover:bg-card/20 active:bg-card/50 focus:border-pink focus:shadow-[0_0_0_3px_#EC4176] bg-white/5 text-white text-xs text-center font-bold shadow-transparent outline-0 transition">+</button>
                         </div>
                         <button type="submit" class="!px-6 xs:!px-8 btn btn-pink">Добавить в корзину</button>
@@ -112,18 +105,6 @@
         <h2 class="mb-12 text-lg lg:text-[42px] font-black">Описание</h2>
         <article class="text-xs md:text-sm">
             {!! $product->text !!}
-            {{--<h5 class="mb-4 text-md lg:text-lg font-black">AEROX 3</h5>
-            <ul class="mb-12 list-outside space-y-3">
-                <li>Сверхлегкий корпус весом 57 грамм для быстрого игрового процесса.</li>
-                <li>Съемный кабель Super Mesh USB-C для уменьшения сопротивления.</li>
-                <li>Отлично скользящие глайды из PTFE для плавных движений мыши.</li>
-                <li>Оптический игровой сенсор TrueMove Core с технологией Pixel perfect.</li>
-                <li>AquaBarrier™ для водонепроницаемости, защиты от пыли и других загрязнений.</li>
-            </ul>
-            <h5 class="mb-4 text-md lg:text-lg font-black">МОЛНИЕНОСНАЯ</h5>
-            <p class="mb-12">Aerox 3 оптимизирована для получения самых быстрых движений в играх, поэтому вы всегда на шаг впереди конкурентов. Когда на счету миллисекунды, скорость имеет значение.</p>
-            <h5 class="mb-4 text-md text-md lg:text-lg font-black">УЛЬТРАЛЕГКАЯ - 57 ГРАММ</h5>
-            <p class="mb-12">Уникальный перфорированный внешний корпус и уменьшенная электроника - все это с высокой точностью спроектировано так, чтобы обеспечить потрясающе легкий вес и новый уровень прочности.</p>--}}
         </article>
     </section>
 

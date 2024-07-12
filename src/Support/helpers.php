@@ -1,8 +1,16 @@
 <?php
 
+use Domain\Cart\CartManager;
 use Domain\Catalog\Filters\FilterManager;
 use Domain\Catalog\Models\Category;
 use Support\Flash\Flash;
+
+if (!function_exists('cart')) {
+    function cart(): CartManager
+    {
+        return app(CartManager::class);
+    }
+}
 
 if (!function_exists('flash')) {
     function flash(): Flash
