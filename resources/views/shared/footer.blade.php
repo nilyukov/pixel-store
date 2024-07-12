@@ -27,5 +27,3 @@
 </footer>
 
 @include('shared.mobile-menu')
-
-@@include('../parts/modals.html')
