@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         Integration::handles($exceptions);
-    })->create()
+    })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('model:prune')->daily();
-    });
+    })->create();
