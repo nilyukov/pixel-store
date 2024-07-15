@@ -5,6 +5,7 @@ namespace Domain\Cart;
 use Domain\Cart\Contracts\CartIdentityStorageContract;
 use Domain\Cart\Models\Cart;
 use Domain\Cart\Models\CartItem;
+use Domain\Cart\StorageIdentities\FakeIdentityStorage;
 use Domain\Product\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,11 @@ class CartManager
         protected CartIdentityStorageContract $identityStorage
     )
     {
+    }
+
+    public static function fake(): void
+    {
+        app()->bind(CartIdentityStorageContract::class, FakeIdentityStorage::class);
     }
 
     public function updateStorageId(string $oldId, string $currentId): void
