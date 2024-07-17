@@ -9,6 +9,7 @@ use Domain\Order\Models\DeliveryType;
 use Domain\Order\Models\PaymentMethod;
 use Domain\Order\Processes\AssignCustomer;
 use Domain\Order\Processes\AssignProducts;
+use Domain\Order\Processes\ChangeStateToPending;
 use Domain\Order\Processes\CheckProductQuantities;
 use Domain\Order\Processes\ClearCart;
 use Domain\Order\Processes\DecreaseProductsQuantities;
@@ -50,11 +51,12 @@ class OrderController extends Controller
     #[Post('/order', name: 'order.handle')]
     public function handle(OrderFormRequest $request, NewOrderAction $action): RedirectResponse
     {
-        $order = $action(NewOrderDTO::fromRequest($request));
+        $dto = NewOrderDTO::fromRequest($request);
+        $order = $action($dto);
 
         (new OrderProcess($order))->processes([
             new CheckProductQuantities(),
-            new AssignCustomer(NewOrderDTO::make(...request()->only('customer'))),
+            new AssignCustomer($dto),
             new AssignProducts(),
             new DecreaseProductsQuantities(),
             new ClearCart()
