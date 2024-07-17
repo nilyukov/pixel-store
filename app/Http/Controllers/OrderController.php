@@ -59,6 +59,7 @@ class OrderController extends Controller
             new AssignCustomer($dto),
             new AssignProducts(),
             new DecreaseProductsQuantities(),
+            new ChangeStateToPending(),
             new ClearCart()
         ])->run();
 
